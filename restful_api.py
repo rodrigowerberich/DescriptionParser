@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS
 
+import authentication_receiver
 import import_request_receiver
 import export_request_receiver
 import update_descriptions_receiver
@@ -9,11 +10,36 @@ app = Flask(__name__)
 CORS(app)
 
 
+@app.route('/login_to_google_drive', methods=['GET'])
+def login_to_google_drive():
+    result = authentication_receiver.local_authentication()
+
+    return result
+
+
+@app.route('/import_spreadsheet_from_google_drive_with_auth', methods=['POST'])
+def import_spreadsheet_from_google_drive_with_auth():
+    path = request.get_json()['path']
+    handle = request.get_json()['handle']
+
+    result = import_request_receiver.import_spreadsheet_from_google_drive_with_handle(path, handle)
+
+    return result
+
+
+@app.route('/export_spreadsheet_to_google_drive_with_auth', methods=['POST'])
+def export_spreadsheet_to_google_drive_with_auth():
+    month = request.get_json()['month']
+    export_path = request.get_json()['export path']
+    handle = request.get_json()['handle']
+
+    result = export_request_receiver.export_spreadsheet_to_google_drive_with_auth(month, export_path, handle)
+
+    return result
+
+
 @app.route('/import_spreadsheet_from_google_drive', methods=['POST'])
 def import_spreadsheet_from_google_drive():
-    print(request.headers)
-    print(request.get_data())
-    print(request.get_json())
     path = request.get_json()['path']
 
     result = import_request_receiver.import_spreadsheet_from_google_drive(path)

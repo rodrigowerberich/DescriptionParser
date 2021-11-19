@@ -1,5 +1,13 @@
 from typing import AnyStr, Iterable
 import manage_gdrive_files
+import gdrive_authenticator
+
+
+def import_spreadsheet_from_google_drive_with_handle(path, handle):
+    drive_instance = gdrive_authenticator.get_drive_authenticators().get_instance(handle)
+    converted_path = manage_gdrive_files.path_converter(path)
+    manage_gdrive_files.import_spreadsheet_file_from_drive(drive_instance, converted_path)
+    return {'message': f"File '{path}' was successfully imported"}, 201
 
 
 def import_spreadsheet_from_google_drive(path: AnyStr):

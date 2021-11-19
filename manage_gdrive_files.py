@@ -41,7 +41,7 @@ def get_file_id(drive, file_location):
     return file_id
 
 
-def _import_spreadsheet_file(drive: GoogleDrive, file_location: Iterable[AnyStr]):
+def import_spreadsheet_file_from_drive(drive: GoogleDrive, file_location: Iterable[AnyStr]):
     file_id = get_file_id(drive, file_location)
     file = drive.CreateFile({'id': file_id})
     spreadsheet_name = file_location[-1] + '.xlsx'
@@ -52,7 +52,7 @@ def _import_spreadsheet_file(drive: GoogleDrive, file_location: Iterable[AnyStr]
                         mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
 
-def _export_spreadsheet_file(drive: GoogleDrive, month: AnyStr, file_location: Iterable[AnyStr]):
+def export_spreadsheet_file_to_drive(drive: GoogleDrive, month: AnyStr, file_location: Iterable[AnyStr]):
     try:
         file_id = get_file_id(drive, file_location)
         file = drive.CreateFile({'id': file_id})
@@ -69,18 +69,18 @@ def _export_spreadsheet_file(drive: GoogleDrive, month: AnyStr, file_location: I
 
 def import_spreadsheet_file(file_location: Iterable[AnyStr]):
     drive = authenticate_drive()
-    _import_spreadsheet_file(drive, file_location)
+    import_spreadsheet_file_from_drive(drive, file_location)
     return True
 
 
 def import_spreadsheets_file(paths: Iterable[Iterable[AnyStr]]):
     drive = authenticate_drive()
     for path in paths:
-        _import_spreadsheet_file(drive, path)
+        import_spreadsheet_file_from_drive(drive, path)
     return True
 
 
 def export_spreadsheet_file(month, converted_export_path):
     drive = authenticate_drive()
-    _export_spreadsheet_file(drive, month, converted_export_path)
+    export_spreadsheet_file_to_drive(drive, month, converted_export_path)
     return True
