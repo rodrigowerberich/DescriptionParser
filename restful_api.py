@@ -10,6 +10,13 @@ app = Flask(__name__)
 CORS(app)
 
 
+@app.route('/request_login_to_google_drive', methods=['GET'])
+def request_login_to_google_drive():
+    result = authentication_receiver.request_login_to_google_drive()
+
+    return result
+
+
 @app.route('/login_to_google_drive', methods=['GET'])
 def login_to_google_drive():
     result = authentication_receiver.local_authentication()

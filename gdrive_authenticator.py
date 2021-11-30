@@ -25,6 +25,12 @@ def get_drive_authenticators():
     return _drive_authenticators
 
 
+def get_auth_url():
+    gauth = GoogleAuth()
+    auth_url = gauth.GetAuthUrl()  # Create authentication url user needs to visit
+    return auth_url
+
+
 def local_authentication_cycle():
     gauth = GoogleAuth()
     # Create local webserver which automatically handles authentication.

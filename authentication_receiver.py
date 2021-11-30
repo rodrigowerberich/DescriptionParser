@@ -7,3 +7,8 @@ def local_authentication():
     drive_authenticators = gdrive_authenticator.get_drive_authenticators()
     handle = drive_authenticators.generate_handle(drive_instance)
     return {'handle': handle}, 201
+
+
+def request_login_to_google_drive():
+    auth_url = gdrive_authenticator.get_auth_url()
+    return {'auth_url': auth_url}, 200
