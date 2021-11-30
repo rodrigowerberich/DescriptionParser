@@ -12,7 +12,7 @@ CORS(app)
 
 @app.route('/', methods=['GET'])
 def hello_world():
-    return "Hello rodrigo!"
+    return "Hello leticia!"
 
 
 @app.route('/request_login_to_google_drive', methods=['GET'])
