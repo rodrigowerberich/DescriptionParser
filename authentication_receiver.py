@@ -12,3 +12,10 @@ def local_authentication():
 def request_login_to_google_drive():
     auth_url = gdrive_authenticator.get_auth_url()
     return {'auth_url': auth_url}, 200
+
+
+def authenticate_external_code(code):
+    drive_instance = gdrive_authenticator.external_authentication_cycle(code)
+    drive_authenticators = gdrive_authenticator.get_drive_authenticators()
+    handle = drive_authenticators.generate_handle(drive_instance)
+    return {'handle': handle}, 201

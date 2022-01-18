@@ -39,3 +39,13 @@ def local_authentication_cycle():
     # Create GoogleDrive instance with authenticated GoogleAuth instance.
     drive = GoogleDrive(gauth)
     return drive
+
+
+def external_authentication_cycle(code):
+    gauth = GoogleAuth()
+    # Authenticate the code received (Without error handling for now)
+    gauth.Auth(code)
+
+    # Create GoogleDrive instance with authenticated GoogleAuth instance.
+    drive = GoogleDrive(gauth)
+    return drive

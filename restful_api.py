@@ -18,7 +18,13 @@ def hello_world():
 @app.route('/request_login_to_google_drive', methods=['GET'])
 def request_login_to_google_drive():
     result = authentication_receiver.request_login_to_google_drive()
+    return result
 
+
+@app.route('/authenticate_login_to_google_drive', methods=['POST'])
+def authenticate_login_to_google_drive():
+    code = request.get_json()['code']
+    result = authentication_receiver.authenticate_external_code(code)
     return result
 
 
