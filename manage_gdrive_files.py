@@ -84,3 +84,9 @@ def export_spreadsheet_file(month, converted_export_path):
     drive = authenticate_drive()
     export_spreadsheet_file_to_drive(drive, month, converted_export_path)
     return True
+
+
+def get_file_link(drive: GoogleDrive, file_location: Iterable[AnyStr]):
+    file_id = get_file_id(drive, file_location)
+    link = "https://drive.google.com/open?id="+file_id
+    return link

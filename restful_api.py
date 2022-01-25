@@ -5,6 +5,7 @@ import authentication_receiver
 import import_request_receiver
 import export_request_receiver
 import update_descriptions_receiver
+import file_info_receiver
 
 app = Flask(__name__)
 CORS(app)
@@ -52,6 +53,16 @@ def export_spreadsheet_to_google_drive_with_auth():
     handle = request.get_json()['handle']
 
     result = export_request_receiver.export_spreadsheet_to_google_drive_with_auth(month, export_path, handle)
+
+    return result
+
+
+@app.route('/get_file_link', methods=['POST'])
+def get_file_link():
+    path = request.get_json()['path']
+    handle = request.get_json()['handle']
+
+    result = file_info_receiver.get_file_link(path, handle)
 
     return result
 
